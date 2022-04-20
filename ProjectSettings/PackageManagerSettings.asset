@@ -29,8 +29,11 @@ MonoBehaviour:
     m_Name: package.openupm.cn
     m_Url: https://package.openupm.cn
     m_Scopes:
+    - com.needle.compilation-visualizer
     - com.needle.demystify
     - com.openupm
+    - com.solidalloy.missing-script-type
+    - com.solidalloy.util
     - jp.ayutaz.simplefoldericon
     m_IsDefault: 0
     m_Capabilities: 0

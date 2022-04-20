@@ -1,7 +1,7 @@
 {
   "dependencies": {
-    "com.needle.demystify": {
-      "version": "1.6.0-exp.2",
+    "com.needle.compilation-visualizer": {
+      "version": "1.8.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {},

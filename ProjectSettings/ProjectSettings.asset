@@ -166,7 +166,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.rts.soumidelrio
+    Android: com.DefaultCompany.TestCI
     Standalone: unity.SoumiDelRio.RTSEngine
     Tizen: com.Company.ProductName
     iPhone: com.Company.ProductName
@@ -775,7 +775,7 @@ PlayerSettings:
   incrementalIl2cppBuild:
     iPhone: 1
   suppressCommonWarnings: 1
-  allowUnsafeCode: 0
+  allowUnsafeCode: 1
   useDeterministicCompilation: 1
   enableRoslynAnalyzers: 1
   additionalIl2CppArgs: 

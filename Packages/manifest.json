@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.needle.demystify": "1.6.0-exp.2",
+    "com.needle.compilation-visualizer": "1.8.0",
     "com.unity.collab-proxy": "1.15.13",
     "com.unity.feature.2d": "1.0.0",
     "com.unity.feature.development": "1.0.1",
@@ -50,8 +50,11 @@
       "name": "package.openupm.cn",
       "url": "https://package.openupm.cn",
       "scopes": [
+        "com.needle.compilation-visualizer",
         "com.needle.demystify",
         "com.openupm",
+        "com.solidalloy.missing-script-type",
+        "com.solidalloy.util",
         "jp.ayutaz.simplefoldericon"
       ]
     }
