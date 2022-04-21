@@ -39,7 +39,7 @@ namespace Cr7Sund.CreateWindow
                             name = type.Name;
 
                         string itemName;
-                        var parent = EnsureByPath(name, attr.order, out itemName);
+                        var parent = EnsureByPath(name, attr.order, out itemName, false);
 
                         var entry = new Entry(itemName, () =>
                         {
@@ -51,9 +51,9 @@ namespace Cr7Sund.CreateWindow
                         }, () => true, parent, attr.order, type);
 
                         if (parent == null)
-                            entries.Add(entry);
+                            AddToCustoms(entry);
                         else
-                            parent.Children.Add(entry);
+                            parent.AddChild(entry); ;
                     }
 
                     var staticMethods =
@@ -99,9 +99,13 @@ namespace Cr7Sund.CreateWindow
                         var entry = new Entry(itemName, method, validator, parent, priority[menuItem]);
 
                         if (parent == null)
-                            entries.Add(entry);
+                        {
+                            AddToBuiltIns(entry);
+                        }
                         else
-                            parent.Children.Add(entry);
+                        {
+                            parent.AddChild(entry);
+                        }
                     }
                 }
             }
@@ -118,9 +122,19 @@ namespace Cr7Sund.CreateWindow
         /// </summary>
         private static void AddInternals()
         {
+            Entry buildEntry = null;
+            if (!ShowCreateNormalOrder)
+            {
+                if (!byPath.TryGetValue("Built-in", out buildEntry))
+                {
+                    buildEntry = AddFolder("Built-in", 0);
+                }
+            }
+
+
             entries.Add(new Entry("Folder", ProjectWindowUtil.CreateFolder, () => true, null, 20));
 
-            var shaderFolder = AddFolder("Shader", 82);
+            var shaderFolder = AddToFirstFolder("Shader", 82);
 
             foreach (var entry in UnityScriptTemplates.Entries)
             {
@@ -137,9 +151,8 @@ namespace Cr7Sund.CreateWindow
 #endif
 
             var createAudioMixer =
-                typeof(ProjectWindowUtil).GetMethod("CreateAudioMixer", BindingFlags.NonPublic | BindingFlags.Static);
-
-            entries.Add(new Entry("Audio Mixer", () => { createAudioMixer.Invoke(null, null); }, () => true, null, 215, typeof(AudioMixer)));
+                 typeof(ProjectWindowUtil).GetMethod("CreateAudioMixer", BindingFlags.NonPublic | BindingFlags.Static);
+            Entry audioMixerEntry = new Entry("Audio Mixer", () => { createAudioMixer.Invoke(null, null); }, () => true, buildEntry, 215, typeof(AudioMixer));
 
             AddInternal(typeof(Material), "Material", 301, "New Material.mat", () => new Material(Shader.Find("Standard")));
             AddInternal(typeof(Flare), "Lens Flare", 303, "New Lens Flare.flare", () => new Flare());
@@ -164,11 +177,21 @@ namespace Cr7Sund.CreateWindow
 
             AddInternal(typeof(Font), "Custom Font", 602, "New Font.fontsettings", () => new Font());
 
-            var legacy = AddFolder("Legacy", 850);
+            var legacy = AddToFirstFolder("Legacy", 850);
             AddInternal(typeof(Cubemap), "Cubemap", 850, "New Cubemap.cubemap", () => new Cubemap(64, TextureFormat.RGBAFloat, true), legacy);
+
+
+            if (!ShowCreateNormalOrder)
+            {
+                buildEntry.AddChild(audioMixerEntry);
+            }
+            else
+            {
+                entries.Add(audioMixerEntry);
+            }
         }
 
-        private static Entry AddFolder(string name, int priority, Entry parent = null)
+        private static Entry AddFolder(string name, int priority, Entry parent = null, bool isBuiltIn = true)
         {
             Entry entry;
             var key = name + "/";
@@ -183,10 +206,25 @@ namespace Cr7Sund.CreateWindow
                 byPath[key] = entry;
             }
             else
-                parent.Children.Add(entry);
+                parent.AddChild(entry); ;
 
             return entry;
         }
+
+        private static Entry AddToFirstFolder(string name, int priority, bool isBuiltIn = true)
+        {
+            Entry entry;
+            var key = name + "/";
+            if (byPath.TryGetValue(key, out entry))
+                return entry;
+
+            entry = new Entry(name, null, priority);
+            if (isBuiltIn) AddToBuiltIns(entry);
+            else AddToCustoms(entry);
+
+            return entry;
+        }
+
 
         private static void AddInternal(Type objectType, string name, int priority, string file, Func<Object> creator, Entry parent = null)
         {
@@ -196,11 +234,43 @@ namespace Cr7Sund.CreateWindow
             }, () => true, parent, priority, objectType);
 
             if (parent == null)
-                entries.Add(entry);
+                AddToBuiltIns(entry);
             else
-                parent.Children.Add(entry);
+                parent.AddChild(entry); ;
         }
 
+        private static void AddToBuiltIns(Entry entry)
+        {
+            if (!ShowCreateNormalOrder)
+            {
+                if (!byPath.TryGetValue("Built-in", out var parentEntry))
+                {
+                    parentEntry = AddFolder("Built-in", 0);
+                }
+                parentEntry.AddChild(entry);
+            }
+            else
+            {
+                entries.Add(entry);
+            }
+        }
+
+        private static void AddToCustoms(Entry entry)
+        {
+            if (!ShowCreateNormalOrder)
+            {
+                const string Key = "Customs";
+                if (!byPath.TryGetValue(Key, out var parentEntry))
+                {
+                    parentEntry = AddFolder(Key, 0);
+                }
+                parentEntry.AddChild(entry);
+            }
+            else
+            {
+                entries.Add(entry);
+            }
+        }
         private delegate void CreateScriptAsset(string templatePath, string destName);
         private static void AddScriptTemplate(string name, int priority, string file, string template, Entry parent = null, Type createdType = null)
         {
@@ -220,7 +290,7 @@ namespace Cr7Sund.CreateWindow
             if (parent == null)
                 entries.Add(entry);
             else
-                parent.Children.Add(entry);
+                parent.AddChild(entry); ;
         }
 
         private class EntryComparer : IComparer<Entry>
@@ -231,7 +301,7 @@ namespace Cr7Sund.CreateWindow
             }
         }
 
-        private static Entry EnsureByPath(string path, int defaultPriority, out string itemName)
+        private static Entry EnsureByPath(string path, int defaultPriority, out string itemName, bool isBuiltIn = true)
         {
             var split = path.Split('/');
 
@@ -255,10 +325,12 @@ namespace Cr7Sund.CreateWindow
                     byPath[partial] = folder;
 
                     if (lastFolder != null)
-                        lastFolder.Children.Add(folder);
+                        lastFolder.AddChild(folder);
                     else
-                        entries.Add(folder);
-
+                    {
+                        if (isBuiltIn) AddToBuiltIns(folder);
+                        else AddToCustoms(folder);
+                    }
                     lastFolder = folder;
                 }
                 else
@@ -275,6 +347,7 @@ namespace Cr7Sund.CreateWindow
         private static List<Entry> entries;
 
         public static List<Entry> GetEntries() => entries;
+        public static bool ShowCreateNormalOrder = false;
     }
 
     internal class Entry
@@ -285,6 +358,7 @@ namespace Cr7Sund.CreateWindow
         public string Text { get; }
         public bool IsFolder { get; }
         public List<Entry> Children { get; }
+        public Entry Parent { get; set; }
         public MenuItemDelegate Create { get; }
         public ValidatorDelegate IsActive { get; }
         public bool IsExpanded { get; set; }
@@ -293,6 +367,12 @@ namespace Cr7Sund.CreateWindow
         public int Priority { get; }
         public Type CreatedType { get; }
         public GUIContent CachedContent { get; set; }
+
+        public void AddChild(Entry child)
+        {
+            child.Parent = this;
+            Children.Add(child);
+        }
 
         public Entry(string name, MenuItemDelegate onCreate, ValidatorDelegate isActive, Entry parent, int priority, Type createdType = null)
         {
