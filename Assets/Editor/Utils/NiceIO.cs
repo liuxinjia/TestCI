@@ -6,6 +6,18 @@ namespace Cr7Sund.EditorUtils
     public static class NiceIO
     {
         /// <summary>
+        /// This function will look in Assets/Editor Default Resources/ + path for the resource. 
+        /// If not there, it will try the built-in editor resources by name.
+        /// </summary>
+        /// <param name="path">Assets/Editor Default Resources/ + pat</param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static T LoadEditorAsset<T>(string path) where T : UnityEngine.Object
+        {
+            return EditorGUIUtility.Load(path) as T;
+        }
+
+        /// <summary>
         /// Try Get Asset Name Via GUID
         /// skip folder
         /// </summary>

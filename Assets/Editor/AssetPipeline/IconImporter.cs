@@ -36,8 +36,6 @@ namespace Cr7Sund.AssetPipelin
             importer.isReadable = true;
 
             SetPlatformSettings(importer);
-
-            importer.SaveAndReimport();
         }
 
         private void SetPlatformSettings(TextureImporter importer)

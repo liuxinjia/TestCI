@@ -31,10 +31,10 @@ namespace Cr7Sund.FolderIcons
           : new Color32(190, 190, 190, 255);
 
         //Folder Icon Resources
-        public const string FolderPath = "Assets/Editor Default Resources/Icons/";
-        public const string OverLayPath = "Assets/Editor Default Resources/Icons/Overlays"; // the overlay icon name
-        public const string CustomIconPath = "Assets/Editor Default Resources/Icons/FolderIcons/Customs"; // the custom fodler icon icon name
-        public const string DefaultIconPath = "Assets/Editor Default Resources/Icons/FolderIcons/DefaultFolders";// the default fodler icon icon name
+        public const string FolderPath = "Assets/Editor Default Resources/Icons/SimpleFolder";
+        public const string OverLayPath = "Assets/Editor Default Resources/Icons/SimpleFolder/Overlays"; // the overlay icon name
+        public const string CustomIconPath = "Assets/Editor Default Resources/Icons/SimpleFolder/FolderIcons/Customs"; // the custom fodler icon icon name
+        public const string DefaultIconPath = "Assets/Editor Default Resources/Icons/SimpleFolder/FolderIcons/DefaultFolders";// the default fodler icon icon name
 
         public const string FolderIconPath = "Assets/Editor Default Resources/Icons/FolderIcons"; //  the folder icon name
         public const string TmpDirectoryPath = "Assets/Editor Default Resources/Icons/TMPFolders";
