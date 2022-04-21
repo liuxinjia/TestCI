@@ -48,7 +48,7 @@ namespace Cr7Sund.FolderIcons
             }
 
 
-            if (IconDict == null) IconDict = new Dictionary<string, FolderIcon>(icons.Length);
+            if (IconDict == null ) IconDict = new Dictionary<string, FolderIcon>();
             else IconDict.Clear();
 
             if (icons != null)
