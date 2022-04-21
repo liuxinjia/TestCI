@@ -24,6 +24,8 @@ namespace Cr7Sund.EditorUtils
             return true;
         }
 
+        public static T LoadAssetViaGUID<T>(string guid) where T : UnityEngine.Object =>
+              AssetDatabase.LoadAssetAtPath<T>(AssetDatabase.GUIDToAssetPath(guid));
         public static string GetAsseetNameViaRelativePath(string path)
         {
             int startIndex = path.LastIndexOf('/');

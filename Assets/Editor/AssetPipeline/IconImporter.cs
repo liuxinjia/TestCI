@@ -8,6 +8,7 @@ namespace Cr7Sund.AssetPipelin
 {
     public class IconImporter : AssetPostprocessor
     {
+        bool isFolderIcon => assetPath.StartsWith(FolderIconConstants.FolderIconPath);
 
         void OnPreprocessTexture()
         {
@@ -53,7 +54,7 @@ namespace Cr7Sund.AssetPipelin
                 texPlatformSetting.format = TextureImporterFormat.RGBA32;
                 texPlatformSetting.crunchedCompression = false;
                 texPlatformSetting.overridden = true;
-                texPlatformSetting.maxTextureSize = assetPath.StartsWith(FolderIconConstants.SourceFolderTexturePath) ? 256 : 128;
+                texPlatformSetting.maxTextureSize = isFolderIcon ? 256 : 128;
             }
 
 
