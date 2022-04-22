@@ -16,7 +16,7 @@ jobs:
       matrix:
         testMode:
           - EditMode
-          # - PlayMode
+          - PlayMode
         targetPlatform:
           # - StandaloneOSX # Build a macOS standalone (Intel 64-bit).
           # - StandaloneWindows # Build a Windows standalone.
