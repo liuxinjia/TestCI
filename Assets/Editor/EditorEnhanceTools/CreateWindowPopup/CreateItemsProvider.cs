@@ -16,6 +16,11 @@ namespace Cr7Sund.CreateWindow
     {
         static CreateItemsProvider()
         {
+            InitProvider();
+        }
+
+        private static void InitProvider()
+        {
             entries = new List<Entry>();
 
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
@@ -347,8 +352,17 @@ namespace Cr7Sund.CreateWindow
         private static List<Entry> entries;
 
         public static List<Entry> GetEntries() => entries;
-        public static bool ShowCreateNormalOrder = false;
+
+        [PerferenceSettingMethod(nameof(RefreshEditor))]
+        public static bool ShowCreateNormalOrder=> EditorPrefs.GetBool(nameof(ShowCreateNormalOrder)); 
+
+        public static void RefreshEditor(){
+            byPath.Clear();
+            entries.Clear();
+            InitProvider();
+        }
     }
+
 
     internal class Entry
     {
