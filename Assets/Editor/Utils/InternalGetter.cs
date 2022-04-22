@@ -4,9 +4,9 @@ using System.Reflection;
 namespace Cr7Sund.EditorUtils
 {
     #if CSHARP_7_3_OR_NEWER
-    internal class InternalGetter<T> where T : Delegate
+    public class InternalGetter<T> where T : Delegate
     #else
-    internal class InternalGetter<T> where T : class
+    public class InternalGetter<T> where T : class
     #endif
     {
         private readonly Type type;

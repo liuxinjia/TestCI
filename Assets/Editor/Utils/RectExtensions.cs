@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Cr7Sund.EditorUtils
 {
-    internal static class RectExtensions
+    public static class RectExtensions
     {
         public static void SplitVertical(this Rect rect, int y, out Rect top, out Rect bottom)
         {
