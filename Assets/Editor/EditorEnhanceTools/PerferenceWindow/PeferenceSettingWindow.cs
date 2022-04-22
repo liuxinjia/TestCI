@@ -193,7 +193,7 @@ namespace Cr7Sund.EditorUtils
             return count;
         }
 
-        public static int TestReflection_Optimized3()
+        public static int TestReflection_Fail3()
         {
             int count = 0;
             var assembly = typeof(PeferenceSettingWindow).Assembly;

@@ -62,22 +62,7 @@ public class TestPerferenceTools
         .Run();
     }
 
-    [Test, Performance]
-    public void TestReflection_Optimized_3()
-    {
-        int count = 0;
-        Measure.Method(() =>
-        {
-            int a = PeferenceSettingWindow.TestReflection_Optimized3();
-            Assert.AreEqual(a, count);
-        })
-        .WarmupCount(10)
-        .MeasurementCount(10)
-        .IterationsPerMeasurement(5)
-        .SetUp(() => count = PeferenceSettingWindow.TestFullReflection())
-        .GC()
-        .Run();
-    }
+
 
     [Test, Performance]
     public void TestReflection_WithouAttribute()
