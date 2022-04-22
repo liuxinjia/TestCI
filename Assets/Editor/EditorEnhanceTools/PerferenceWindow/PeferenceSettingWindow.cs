@@ -35,7 +35,6 @@ namespace Cr7Sund.EditorUtils
         #region  DrawTools
         public static VisualElement DrawElements()
         {
-            Debug.Log("Draw");
             VisualElement foldOut = null;
             var assembly = typeof(PeferenceSettingWindow).Assembly;
             var types = assembly.GetTypes();
