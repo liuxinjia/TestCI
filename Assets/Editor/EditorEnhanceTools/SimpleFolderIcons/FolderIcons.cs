@@ -6,26 +6,15 @@ using UnityEngine;
 
 namespace Cr7Sund.FolderIcons
 {
-    [InitializeOnLoad]
-    internal static class FolderIconsReplacer
+    internal class FolderIconsReplacer
     {
         // References
         private static Object[] allFolderIcons;
         private static FolderIconSettings folderIcons;
 
-        public static bool showFolder;
-        public static bool showOverlay;
 
 
-        static FolderIconsReplacer()
-        {
-            CheckPreferences();
-
-            EditorApplication.projectWindowItemOnGUI -= ReplaceFolders;
-            EditorApplication.projectWindowItemOnGUI += ReplaceFolders;
-        }
-
-        private static void ReplaceFolders(string guid, Rect selectionRect)
+        public static void ReplaceFolders(string guid, Rect selectionRect)
         {
             // Does the folder asset exist at all?
             if (allFolderIcons == null)
@@ -40,7 +29,7 @@ namespace Cr7Sund.FolderIcons
             if (folderIcons == null)
                 return;
 
-            if (!folderIcons.showCustomFolder && !folderIcons.showOverlay)
+            if (!FolderIconPerference.ShowFolder && !FolderIconPerference.ShowOverlay)
                 return;
 
             string path = AssetDatabase.GUIDToAssetPath(guid);
@@ -77,29 +66,15 @@ namespace Cr7Sund.FolderIcons
                 rect.height -= 14f;
             }
 
-            if (showFolder && icon.folderIcon)
+            if (FolderIconPerference.ShowFolder && icon.folderIcon)
                 FolderIconGUI.DrawFolderTexture(rect, icon.folderIcon, guid);
 
-            if (showOverlay && icon.overlayIcon)
+            if (FolderIconPerference.ShowOverlay && icon.overlayIcon)
                 FolderIconGUI.DrawOverlayTexture(rect, icon.overlayIcon);
         }
 
         #region Initialize 
 
-        private static void CheckPreferences()
-        {
-            string prefFolder = FolderIconConstants.FOLDER_TEXTURE_PATH;
-            string prefIcon = FolderIconConstants.ICONS_TEXTURE_PATH;
-
-            if (!EditorPrefs.HasKey(prefFolder))
-                EditorPrefs.SetBool(prefFolder, true);
-
-            if (!EditorPrefs.HasKey(prefIcon))
-                EditorPrefs.SetBool(prefIcon, true);
-
-            showFolder = EditorPrefs.GetBool(prefFolder);
-            showOverlay = EditorPrefs.GetBool(prefIcon);
-        }
 
         private static bool FindOrCreateFolder(string path, string folderCreateName)
         {

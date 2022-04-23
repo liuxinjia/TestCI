@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Cr7Sund.EditorUtils
 {
@@ -23,6 +24,22 @@ namespace Cr7Sund.EditorUtils
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Get Default via type
+        /// https://stackoverflow.com/a/54125660/7360004
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public static object GetDefault(this Type t){
+            var defaultValue = typeof(TypeExtension).GetRuntimeMethod(nameof(GetDefaultGeneric), 
+            new Type[]{}).MakeGenericMethod(t).Invoke(null,null);
+            return defaultValue;
+        }
+
+        public static T GetDefaultGeneric<T>(){
+            return default(T);
         }
 
     }

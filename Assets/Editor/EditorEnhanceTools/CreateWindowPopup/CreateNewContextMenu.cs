@@ -13,36 +13,31 @@ namespace Cr7Sund.CreateWindow
 {
     internal class CreateNewContextMenu
     {
+
         private static bool showContextMenuInNextEvent;
 
-        [InitializeOnLoadMethod]
-        private static void Init()
+        private static CreatePopupWindowContent popupWindowContent;
+
+
+        public static CreatePopupWindowContent CreateCreateWindowContent(bool isRecreated = false)
         {
-            var field = typeof(GUIUtility).GetField("processEvent",
-                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+            if (popupWindowContent == null || isRecreated) popupWindowContent = new CreatePopupWindowContent();
 
-            Debug.Assert(field != null, "Cannot find processEvent delegate in GUIUtility. Are you using unsupported version of Unity?");
 
-            var oldProcessEvent = (Func<int, IntPtr, bool>)field.GetValue(null);
-
-            Func<int, IntPtr, bool> newProcessEvent = (a, b) =>
-            {
-                if (showContextMenuInNextEvent)
-                {
-                    showContextMenuInNextEvent = false;
-
-                    PopupWindow.Show(new Rect(Event.current.mousePosition.x, Event.current.mousePosition.y, 0, 0),
-                        new CreatePopupWindowContent());
-                }
-
-                if (oldProcessEvent == null)
-                    return false;
-
-                return oldProcessEvent(a, b);
-            };
-
-            field.SetValue(null, newProcessEvent);
+            return popupWindowContent;
         }
+
+        public static void RegisterProcessEvent()
+        {
+            if (showContextMenuInNextEvent)
+            {
+                showContextMenuInNextEvent = false;
+
+                PopupWindow.Show(new Rect(Event.current.mousePosition.x, Event.current.mousePosition.y, 0, 0),
+                CreateCreateWindowContent());
+            }
+        }
+
 
         [MenuItem("Assets/Create New", false, -1)]
         private static void DoSomething()

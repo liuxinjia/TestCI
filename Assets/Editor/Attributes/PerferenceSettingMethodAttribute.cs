@@ -8,6 +8,9 @@ public sealed class PerferenceSettingMethodAttribute : System.Attribute
         refreshMethod = reloadMethodName;
     }
 
+    public PerferenceSettingMethodAttribute()
+    {
 
+    }
     public string refreshMethod;
 }

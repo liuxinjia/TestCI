@@ -8,14 +8,7 @@ namespace Cr7Sund.FolderIcons
     /// </summary>
     internal static class FolderIconConstants
     {
-        public static readonly string ASSET_DEFAULT_PATH = Application.dataPath;
 
-        // Settings
-        public const string FOLDER_TEXTURE_PATH = "Assets/ColouredFolders/Folders";
-        public const string ICONS_TEXTURE_PATH = "Assets/ColouredFolders/Icons";
-
-        public const string PREF_FOLDER = "FolderPlus_ShowCustomFolders";
-        public const string PREF_OVERLAY = "FolderPlus_ShowCustomIcons";
 
         // GUI
         public const float MAX_TREE_WIDTH = 118f;

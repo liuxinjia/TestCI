@@ -10,9 +10,6 @@ namespace Cr7Sund.EditorUtils
     using instance.id.EATK.Extensions;
     using System;
 
-    using UnityEngine;
-    using UnityEditor;
-
     public class PeferenceSettingWindow : EditorWindow
     {
 
@@ -28,14 +25,18 @@ namespace Cr7Sund.EditorUtils
         private void DrawWindow()
         {
             if (rootVisualElement.childCount < 1)
-                rootVisualElement.Add(PeferenceSettingWindow.DrawElements());
+            {
+                var foldOuts = PeferenceSettingWindow.DrawElements();
+                foreach (var fold in foldOuts)
+                    rootVisualElement.Add(fold);
+            }
         }
         private void OnFocus() => DrawWindow();
 
         #region  DrawTools
-        public static VisualElement DrawElements()
+        public static List<VisualElement> DrawElements()
         {
-            VisualElement foldOut = null;
+            var foldOuts = new List<VisualElement>();
             var assembly = typeof(PeferenceSettingWindow).Assembly;
             var types = assembly.GetTypes();
             var elements = new List<VisualElement>();
@@ -59,8 +60,24 @@ namespace Cr7Sund.EditorUtils
                                                                 // EditorPrefs.GetBool();
                                                                 string name = propInfo.Name;
                                                                 EditorPrefs.SetBool(name, (bool)newValue);
-                                                                var refreshMethodInfo = type.GetMethod(perferSettingAttr.refreshMethod);
-                                                                if (refreshMethodInfo != null) refreshMethodInfo.Invoke(null, null);
+                                                                if (string.IsNullOrEmpty(perferSettingAttr.refreshMethod)) return;
+                                                                var refreshMethodInfo = type.GetMethod(perferSettingAttr.refreshMethod, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+                                                                if (refreshMethodInfo == null) return;
+                                                                var methodParams = refreshMethodInfo.GetParameters();
+                                                                var invokeParams = new object[methodParams.Length];
+                                                                for (int i = 0; i < methodParams.Length; i++)
+                                                                {
+                                                                    ParameterInfo methodParam = methodParams[i];
+                                                                    //    if(methodParam.HasDefaultValue)
+                                                                    if (typeof(bool).IsAssignableFrom(methodParam.ParameterType))
+                                                                        invokeParams[i] = true; // the default reset method parameter is true
+                                                                    else
+                                                                    {
+                                                                        Debug.LogError($"{propInfo.Name} 's Reset method {refreshMethodInfo.Name} contains not -bool parameter");
+                                                                        return;
+                                                                    }
+                                                                }
+                                                                refreshMethodInfo.Invoke(null, invokeParams);
                                                             }, propInfo.Name);
                             elements.Add(propertyElement);
                         }
@@ -68,7 +85,7 @@ namespace Cr7Sund.EditorUtils
                 }
                 if (elements.Count > 0)
                 {
-                    foldOut = CreateAnimFoldOut(type.Name);
+                    var foldOut = CreateAnimFoldOut(type.Name);
                     var foldOutContainer = CreateAnimFoldoutContainer();
 
                     foreach (var element in elements)
@@ -76,11 +93,11 @@ namespace Cr7Sund.EditorUtils
                         foldOutContainer.Add(element);
                     }
                     foldOut.Add(foldOutContainer);
-
+                    foldOuts.Add(foldOut);
                 }
             }
 
-            return foldOut;
+            return foldOuts;
         }
 
         public static AnimatedFoldout CreateAnimFoldOut(string title)

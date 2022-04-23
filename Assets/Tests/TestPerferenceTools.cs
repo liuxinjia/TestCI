@@ -13,7 +13,7 @@ public class TestPerferenceTools
     public void TestCreateElement()
     {
         int count = 0;
-        Measure.Method(() => Assert.AreEqual(PeferenceSettingWindow.DrawElements().childCount, count))
+        Measure.Method(() => Assert.AreEqual(PeferenceSettingWindow.DrawElements().Count, count))
         .WarmupCount(10)
         .MeasurementCount(10)
         .IterationsPerMeasurement(5)

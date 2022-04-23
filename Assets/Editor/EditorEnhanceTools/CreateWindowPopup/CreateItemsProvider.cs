@@ -128,7 +128,7 @@ namespace Cr7Sund.CreateWindow
         private static void AddInternals()
         {
             Entry buildEntry = null;
-            if (!ShowCreateNormalOrder)
+            if (!CreateWindowPerference.ShowNormalOrder)
             {
                 if (!byPath.TryGetValue("Built-in", out buildEntry))
                 {
@@ -186,7 +186,7 @@ namespace Cr7Sund.CreateWindow
             AddInternal(typeof(Cubemap), "Cubemap", 850, "New Cubemap.cubemap", () => new Cubemap(64, TextureFormat.RGBAFloat, true), legacy);
 
 
-            if (!ShowCreateNormalOrder)
+            if (!CreateWindowPerference.ShowNormalOrder)
             {
                 buildEntry.AddChild(audioMixerEntry);
             }
@@ -246,7 +246,7 @@ namespace Cr7Sund.CreateWindow
 
         private static void AddToBuiltIns(Entry entry)
         {
-            if (!ShowCreateNormalOrder)
+            if (!CreateWindowPerference.ShowNormalOrder)
             {
                 if (!byPath.TryGetValue("Built-in", out var parentEntry))
                 {
@@ -262,7 +262,7 @@ namespace Cr7Sund.CreateWindow
 
         private static void AddToCustoms(Entry entry)
         {
-            if (!ShowCreateNormalOrder)
+            if (!CreateWindowPerference.ShowNormalOrder)
             {
                 const string Key = "Customs";
                 if (!byPath.TryGetValue(Key, out var parentEntry))
@@ -353,12 +353,9 @@ namespace Cr7Sund.CreateWindow
 
         public static List<Entry> GetEntries() => entries;
 
-        [PerferenceSettingMethod(nameof(RefreshEditor))]
-        public static bool ShowCreateNormalOrder=> EditorPrefs.GetBool(nameof(ShowCreateNormalOrder)); 
 
-        public static void RefreshEditor(){
-            byPath.Clear();
-            entries.Clear();
+        public static void RefreshEditor()
+        {
             InitProvider();
         }
     }

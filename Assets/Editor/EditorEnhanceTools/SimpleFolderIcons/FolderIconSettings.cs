@@ -22,9 +22,7 @@ namespace Cr7Sund.FolderIcons
             public Texture2D overlayIcon;
         }
 
-        //Global Settings
-        public bool showOverlay = true;
-        public bool showCustomFolder = true;
+
 
         public FolderIcon[] icons;
 

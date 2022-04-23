@@ -12,9 +12,6 @@ namespace Cr7Sund.FolderIcons
         private FolderIconSettings settings;
         private SerializedProperty serializedIcons;
 
-        // Settings
-        private bool showCustomFolders;
-        private bool showCustomOverlay;
 
         private ReorderableList iconList;
 
@@ -57,8 +54,7 @@ namespace Cr7Sund.FolderIcons
             settings = target as FolderIconSettings;
             serializedIcons = serializedObject.FindProperty("icons");
             settings.GetConfigs();
-            showCustomFolders = settings.showCustomFolder;
-            showCustomOverlay = settings.showOverlay;
+
 
             if (iconList == null)
             {
@@ -109,21 +105,6 @@ namespace Cr7Sund.FolderIcons
                 };
             }
 
-            // Draw Settings
-            EditorGUILayout.LabelField("Settings", EditorStyles.boldLabel);
-
-            EditorGUI.BeginChangeCheck();
-            {
-                showCustomFolders = EditorGUILayout.ToggleLeft("Show Folder Textures", showCustomFolders);
-                showCustomOverlay = EditorGUILayout.ToggleLeft("Show Overlay Textures", showCustomOverlay);
-            }
-            if (EditorGUI.EndChangeCheck())
-            {
-                ApplySettings();
-            }
-
-            EditorGUILayout.Space(16f);
-
             EditorGUI.BeginChangeCheck();
             iconList.DoLayoutList();
 
@@ -149,12 +130,6 @@ namespace Cr7Sund.FolderIcons
             EditorGUI.EndDisabledGroup();
         }
 
-
-        private void ApplySettings()
-        {
-            FolderIconsReplacer.showFolder = settings.showCustomFolder = showCustomFolders;
-            FolderIconsReplacer.showOverlay = settings.showOverlay = showCustomOverlay;
-        }
 
         #region Reorderable Array Draw
 
