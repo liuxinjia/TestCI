@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
-using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
@@ -10,7 +9,7 @@ using UnityEngine.U2D;
 using AnimatorController = UnityEditor.Animations.AnimatorController;
 using Object = UnityEngine.Object;
 
-namespace Cr7Sund.CreateWindow
+namespace Cr7Sund.EditorEnhanceTools
 {
     internal static class CreateItemsProvider
     {

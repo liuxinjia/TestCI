@@ -1,4 +1,4 @@
-namespace Cr7Sund.EditorUtils
+namespace Cr7Sund.EditorEnhanceTools
 {
     using UnityEditor;
     using UnityEngine;

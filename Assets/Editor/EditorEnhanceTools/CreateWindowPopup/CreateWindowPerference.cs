@@ -1,6 +1,6 @@
 using UnityEditor;
 
-namespace Cr7Sund.CreateWindow
+namespace Cr7Sund.EditorEnhanceTools
 {
     internal class CreateWindowPerference
     {

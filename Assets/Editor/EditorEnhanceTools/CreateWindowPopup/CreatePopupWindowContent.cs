@@ -1,16 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using Cr7Sund.CreateWindow;
-using Cr7Sund.EditorUtils;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Profiling;
 using UnityEngine.SceneManagement;
 
-namespace Cr7Sund.CreateWindow
+namespace Cr7Sund.EditorEnhanceTools
 {
     internal class CreatePopupWindowContent : PopupWindowContent
     {

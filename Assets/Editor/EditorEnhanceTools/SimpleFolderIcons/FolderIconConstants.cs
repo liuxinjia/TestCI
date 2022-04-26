@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace Cr7Sund.FolderIcons
+namespace Cr7Sund.EditorEnhanceTools
 {
     /// <summary>
     /// Contains all constant data, values and colours FolderIcon requires

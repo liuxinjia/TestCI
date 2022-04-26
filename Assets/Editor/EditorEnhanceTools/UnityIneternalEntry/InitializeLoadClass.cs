@@ -1,7 +1,7 @@
-using Cr7Sund.FolderIcons;
+using Cr7Sund.EditorEnhanceTools;
 using UnityEditor;
 
-namespace Cr7Sund.EditorUtils
+namespace Cr7Sund.EditorEnhanceTools
 {
     [InitializeOnLoad]
     public static class InitializeLoadClass

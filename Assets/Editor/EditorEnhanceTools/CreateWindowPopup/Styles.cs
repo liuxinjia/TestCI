@@ -1,9 +1,9 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Cr7Sund.CreateWindow
+namespace Cr7Sund.EditorEnhanceTools
 {
-    using Cr7Sund.EditorUtils;
+    using Cr7Sund.EditorEnhanceTools;
 
     internal static class Styles
     {

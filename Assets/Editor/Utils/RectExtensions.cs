@@ -1,7 +1,7 @@
 using System.Xml.Linq;
 using UnityEngine;
 
-namespace Cr7Sund.EditorUtils
+namespace Cr7Sund.EditorEnhanceTools
 {
     public static class RectExtensions
     {

@@ -3,7 +3,7 @@ using System;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Cr7Sund.EditorUtils
+namespace Cr7Sund.EditorEnhanceTools
 {
     public static class TypeExtension
     {

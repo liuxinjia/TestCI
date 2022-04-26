@@ -1,4 +1,4 @@
-namespace Cr7Sund.CreateWindow
+namespace Cr7Sund.EditorEnhanceTools
 {
     using UnityEngine;
 

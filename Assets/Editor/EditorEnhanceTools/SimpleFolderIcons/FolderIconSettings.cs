@@ -1,14 +1,14 @@
 ﻿
 
-namespace Cr7Sund.FolderIcons
+namespace Cr7Sund.EditorEnhanceTools
 {
-    using Cr7Sund.EditorUtils;
+    using Cr7Sund.EditorEnhanceTools;
     using System.IO;
     using System;
     using System.Collections.Generic;
     using UnityEditor;
     using UnityEngine;
-    using static Cr7Sund.FolderIcons.FolderIconSettings;
+    using static Cr7Sund.EditorEnhanceTools.FolderIconSettings;
     
     [CreateAssetMenu(fileName = "Folder Icon Manager", menuName = "Scriptables/Others/Folder Manager")]
     public class FolderIconSettings : ScriptableObject
@@ -97,7 +97,7 @@ namespace Cr7Sund.FolderIcons
 
             foreach (var guid in iconGuids)
             {
-                bool isValidAsset = Cr7Sund.EditorUtils.NiceIO.TryGetAsseetNameViaGUID(guid, out var folderName);
+                bool isValidAsset = Cr7Sund.EditorEnhanceTools.NiceIO.TryGetAsseetNameViaGUID(guid, out var folderName);
                 if (!isValidAsset) continue;
                 string childFolderPath = $"{FolderIconConstants.TmpDirectoryPath}/{folderName}";
                 if (!defaultIconDict.TryGetValue(folderName, out var iconSetting))

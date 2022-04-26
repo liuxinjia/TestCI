@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using Cr7Sund.EditorUtils;
-using Cr7Sund.FolderIcons;
+using Cr7Sund.EditorEnhanceTools;
 using UnityEditor;
 using UnityEngine;
-namespace Cr7Sund.AssetPipelin
+namespace Cr7Sund.AssetPipeline
 {
     public class IconImporter : AssetPostprocessor
     {

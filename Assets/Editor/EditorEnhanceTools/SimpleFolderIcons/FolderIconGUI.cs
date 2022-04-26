@@ -2,7 +2,7 @@
 using UnityEditor;
 using System.Linq;
 
-namespace Cr7Sund.FolderIcons
+namespace Cr7Sund.EditorEnhanceTools
 {
     /// <summary>
     /// GUI Methods for Folder Icons.

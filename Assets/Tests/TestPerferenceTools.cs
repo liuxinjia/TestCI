@@ -4,7 +4,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 using Unity.PerformanceTesting;
-using Cr7Sund.EditorUtils;
+using Cr7Sund.EditorEnhanceTools;
 
 public class TestPerferenceTools
 {

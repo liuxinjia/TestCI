@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace Cr7Sund.EditorUtils
+namespace Cr7Sund.EditorEnhanceTools
 {
     #if CSHARP_7_3_OR_NEWER
     public class InternalGetter<T> where T : Delegate

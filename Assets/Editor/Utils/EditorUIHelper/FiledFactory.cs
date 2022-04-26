@@ -8,9 +8,8 @@ using System.Linq;
 using System.Reflection;
 using System.Globalization;
 
-namespace Cr7Sund.EditorUtils
+namespace Cr7Sund.EditorEnhanceTools
 {
-    [Obsolete("Field Factory is not necessary anymore. You can use a SerializedProperty directly instead.")]
     public static class FieldFactory
     {
         static readonly Dictionary<Type, Type> fieldDrawers = new Dictionary<Type, Type>();

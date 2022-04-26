@@ -1,4 +1,4 @@
-namespace Cr7Sund.FolderIcons
+namespace Cr7Sund.EditorEnhanceTools
 {
     using UnityEngine;
     using UnityEditor;

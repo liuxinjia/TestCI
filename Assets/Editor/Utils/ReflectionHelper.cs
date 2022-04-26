@@ -1,5 +1,5 @@
 using System.Reflection;
-namespace Cr7Sund.EditorUtils
+namespace Cr7Sund.EditorEnhanceTools
 {
     public static class ReflectionHelper
     {

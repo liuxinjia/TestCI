@@ -1,5 +1,5 @@
 using System.IO;
-namespace Cr7Sund.EditorUtils
+namespace Cr7Sund.EditorEnhanceTools
 {
     using UnityEngine;
     using UnityEditor;

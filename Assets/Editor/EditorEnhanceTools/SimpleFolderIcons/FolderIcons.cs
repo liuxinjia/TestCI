@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 
-namespace Cr7Sund.FolderIcons
+namespace Cr7Sund.EditorEnhanceTools
 {
     internal class FolderIconsReplacer
     {

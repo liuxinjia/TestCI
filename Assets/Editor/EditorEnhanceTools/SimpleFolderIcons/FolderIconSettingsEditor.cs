@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEditorInternal;
 using System.IO;
 
-namespace Cr7Sund.FolderIcons
+namespace Cr7Sund.EditorEnhanceTools
 {
     [CustomEditor(typeof(FolderIconSettings))]
     internal class FolderIconSettingsEditor : Editor
@@ -412,7 +412,7 @@ namespace Cr7Sund.FolderIcons
 
             AssetDatabase.Refresh();
 
-            var absolutePath = Cr7Sund.EditorUtils.NiceIO.GetRelativePathViaAbsolutePath(relativePath);
+            var absolutePath = Cr7Sund.EditorEnhanceTools.NiceIO.GetRelativePathViaAbsolutePath(relativePath);
 
             TextureImporter importer = AssetImporter.GetAtPath(absolutePath) as TextureImporter;
 

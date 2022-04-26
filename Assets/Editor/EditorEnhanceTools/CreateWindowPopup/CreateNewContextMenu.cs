@@ -9,7 +9,7 @@ using UnityEngine;
 /// to have that window opened all the time. So here is the workaround: using reflection we replace processEvent delegate in GUIUtility
 /// to show the menu when needed
 /// </summary>
-namespace Cr7Sund.CreateWindow
+namespace Cr7Sund.EditorEnhanceTools
 {
     internal class CreateNewContextMenu
     {
