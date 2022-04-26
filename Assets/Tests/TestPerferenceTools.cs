@@ -13,7 +13,16 @@ public class TestPerferenceTools
     public void TestCreateElement()
     {
         int count = 0;
-        Measure.Method(() => Assert.AreEqual(PeferenceSettingWindow.DrawElements().Count, count))
+        Measure.Method(() =>
+        {
+            int elementsCount = 0;
+            var elements = PeferenceSettingWindow.DrawElements();
+            foreach (var item in elements)
+            {
+                elementsCount += item.ElementAt(0).childCount;//foldOut's only but first element is foldOutContainer
+            }
+            Assert.AreEqual(count, elementsCount);
+        })
         .WarmupCount(10)
         .MeasurementCount(10)
         .IterationsPerMeasurement(5)
